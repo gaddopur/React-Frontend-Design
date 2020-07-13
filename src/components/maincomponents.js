@@ -12,6 +12,7 @@ import Header from './headercomponent'
 import Footer from './footercomponent'
 import Home  from './homecomponent'
 import ContactUs from "./contactuscomponent"
+import About from "./aboutuscomponent"
 
 class Main extends Component {
   constructor(props) {
@@ -44,6 +45,11 @@ class Main extends Component {
         />
       );
     }
+    const AboutUsPage = () => {
+      return (
+        <About leaders={this.state.leaders}/>
+      );
+    }
     return(
       <div>
         <Header />
@@ -52,6 +58,7 @@ class Main extends Component {
           <Route exact path="/menu" component={() => <Menu dishes={this.state.dishes} />} />
           <Route path="/menu/:dishId" component={DishDetailPage} />
           <Route exact path="/contactus" component={ContactUs} />
+          <Route exact path="/aboutus" component={AboutUsPage} />
           <Redirect to="/home" />
         </Switch>
         <Footer />
