@@ -2,12 +2,29 @@ import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-function RenderLeader({leader}) {
+import { Loading } from "./loadingcomponent"
+import { baseUrl } from "../shared/baseurl"
+
+function RenderLeader({leader, leaderLoading, leaderErr}) {
+  if(leaderErr !== null){
+    return(
+      <div className="container">
+         <div className="row">
+           <h4>{leaderErr}</h4>
+         </div>
+       </div>
+    );
+  }
+  else if(leaderLoading) {
+    return (
+      <Loading />
+    );
+  }
   return(
     <div className="col-12 mt-5">
       <Media tag="li"  key={leader.id}>
         <Media left middle>
-            <Media object src={leader.image} alt={leader.name} />
+            <Media object src={baseUrl+leader.image} alt={leader.name} />
         </Media>
         <Media body className="ml-5">
           <Media heading>{leader.name}</Media>
@@ -21,9 +38,11 @@ function RenderLeader({leader}) {
 
 function About(props) {
 
-    const leaders = props.leaders.map((leader) => {
+    const leaders = props.leaders.leaders.map((leader) => {
         return (
-            <RenderLeader leader={leader} />
+            <RenderLeader leader={leader}
+              leaderLoading={props.leaders.isLoading}
+              leaderErr={props.leaders.errMess}/>
         );
     });
 
