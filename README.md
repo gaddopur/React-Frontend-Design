@@ -1,2 +1,2 @@
-Frontend design for resturant using react.
+Frontend design of resturant using react.
 
